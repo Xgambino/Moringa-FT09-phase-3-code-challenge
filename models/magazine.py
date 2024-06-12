@@ -34,12 +34,6 @@ class Magazine:
     def category(self):
         return self._category
     
-    @category.setter
-    def category(self, new_category):
-        if isinstance(new_category, str) and len(new_category) > 0:
-            self._category = new_category
-    
-
     def save(self):
         conn = get_db_connection()
         CURSOR = conn.cursor()

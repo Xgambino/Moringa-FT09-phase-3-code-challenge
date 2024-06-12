@@ -11,20 +11,18 @@ class Article:
         self.magazine_id = magazine_id
         if self.id is None:
             self.create_db_entry()
-
-    @property
-    def author(self):
-        author_info = self.get_author_info_by_id(self.author_id)
-        if author_info:
-            return Author(author_info["id"], author_info['name'])
-        else:
-            return None
-
     @property
     def magazine(self):
         magazine_info = self.get_magazine_info_by_id(self.magazine_id)
         if magazine_info:
             return Magazine(magazine_info["id"], magazine_info['name'], magazine_info['category'])
+        else:
+            return None
+    @property
+    def author(self):
+        author_info = self.get_author_info_by_id(self.author_id)
+        if author_info:
+            return Author(author_info["id"], author_info['name'])
         else:
             return None
 
@@ -42,14 +40,6 @@ class Article:
         else:
             raise AttributeError("Title cannot be changed")
 
-    def create_db_entry(self):
-        conn = get_db_connection()
-        cursor = conn.cursor()
-        cursor.execute('INSERT INTO articles (title, content, author_id, magazine_id) VALUES (?, ?, ?, ?)', 
-                       (self.title, self.content, self.author_id, self.magazine_id))
-        self.id = cursor.lastrowid
-        conn.commit()
-        conn.close()
 
     @staticmethod
     def get_author_info_by_id(author_id):

@@ -5,30 +5,7 @@ class Author:
         self._id = id
         self.name = name
 
-    @property
-    def id(self):
-        return self._id
-
-    @id.setter
-    def id(self, id):
-        if not isinstance(id, int):
-            raise TypeError("id must be of type int")
-        self._id = id
-
-    @property
-    def name(self):
-        return self._name
-
-    @name.setter
-    def name(self, name):
-        if not isinstance(name, str):
-            raise TypeError("name must be of type str")
-        if len(name) == 0:
-            raise ValueError("name must be longer than 0 characters")
-        if hasattr(self, '_name'):
-            raise AttributeError("name cannot be changed once set")
-        self._name = name
-
+ 
     @property
     def articles(self):
         from models.article import Article
@@ -64,6 +41,31 @@ class Author:
             return [Magazine(magazine["id"], magazine['name'], magazine['category']) for magazine in magazine_info]
         else:
             return []
+        
+    @property
+    def id(self):
+        return self._id
+
+    @id.setter
+    def id(self, id):
+        if not isinstance(id, int):
+            raise TypeError("id must be of type int")
+        self._id = id
+
+    @property
+    def name(self):
+        return self._name
+
+    @name.setter
+    def name(self, name):
+        if not isinstance(name, str):
+            raise TypeError("name must be of type str")
+        if len(name) == 0:
+            raise ValueError("name must be longer than 0 characters")
+        if hasattr(self, '_name'):
+            raise AttributeError("name cannot be changed once set")
+        self._name = name
+
 
     def __repr__(self):
         article_titles = ", ".join([article.title for article in self.articles]) if self.articles else "None"
